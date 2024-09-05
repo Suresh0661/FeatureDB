@@ -1,0 +1,68 @@
+   CREATE OR ALTER PROCEDURE [dbo].[GetFeatureList]
+AS
+BEGIN
+	SELECT * FROM dbo.Feature
+END
+GO
+
+--------------
+CREATE PROCEDURE [dbo].[AddNewFeature]
+@Title [nvarchar](max),
+@Description [nvarchar](max),
+@EstimatedComplexity  [nvarchar](max)  ,
+@Status  [nvarchar](max)  ,
+@TargetCompletionDate  datetime  ,
+@ActualCompletionDate  datetime AS
+BEGIN
+	INSERT INTO dbo.Feature
+		(
+			Title,
+			Description,
+			 EstimatedComplexity  ,
+			 Status  ,
+TargetCompletionDate  ,
+ActualCompletionDate  
+		)
+    VALUES
+		(
+			@ Title  ,
+			@ Description  ,
+			@ EstimatedComplexity  ,
+			@ Status  ,
+@ TargetCompletionDate  ,
+@ ActualCompletionDate  
+		)
+END
+GO  
+
+----------------
+CREATE PROCEDURE [dbo].[UpdateFeature]
+@FeatureId int,  
+@Title [nvarchar](max),
+@Description [nvarchar](max),
+@EstimatedComplexity  [nvarchar](max)  ,
+@Status  [nvarchar](max)  ,
+@TargetCompletionDate  datetime  ,
+@ActualCompletionDate  datetime 
+AS
+
+BEGIN
+	UPDATE dbo.Feature
+    SET
+		Title = @ Title  ,
+		 Description   = @ Description  ,
+	 EstimatedComplexity  = @ EstimatedComplexity  ,
+		 Status   = @ Status ,
+TargetCompletionDate = @TargetCompletionDate ,
+ActualCompletionDate = @ActualCompletionDate
+	WHERE FeatureId = @ FeatureId  
+END
+GO
+-----------------
+CREATE PROCEDURE [dbo].[DeleteFeatureByID]
+@ FeatureId  int
+AS
+BEGIN
+	DELETE FROM dbo.Feature where  FeatureId = @ FeatureId  
+END
+GO
